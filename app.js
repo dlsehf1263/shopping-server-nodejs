@@ -19,15 +19,23 @@ app.get("/item/:id", (req, res) =>{
     let datas = fs.readFileSync("shoppingData.json");
     jsonDatas = JSON.parse(datas);
     console.log(jsonDatas);
-    let result = jsonDatas[id];
+    let result = jsonDatas.find((e) => e.id == id);
     return res.json(result);
+});
+app.get("/test/:id", (req, res) =>{
+    let id = req.params.id;
+    let datas = fs.readFileSync("shoppingData.json");
+    let jsonDatas = JSON.parse(datas);
+    let result = jsonDatas.find((e) => e.id == id);
+    console.log(result);
+    return res.send(result);
 });
 
 app.post("/buy/item/:id", (req, res) =>{
     let id = req.params.id;
     let datas = fs.readFileSync("shoppingData.json");
     jsonDatas = JSON.parse(datas);
-    let result = jsonDatas[id];
+    let result = jsonDatas.find((e) => e.id == id);
     if(result.ea == 0){
         return res.sendStatus(404);
     }
